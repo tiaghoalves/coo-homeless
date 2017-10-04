@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Coo Homeless</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="n_o_possui_conta_ainda_crie_a_sua">Não possui conta ainda? Crie a sua</string>
+    <string name="password">Password</string>
+    <string name="logo">Logo</string>
 </resources>
