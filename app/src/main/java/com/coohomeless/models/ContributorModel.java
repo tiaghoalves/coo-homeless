@@ -1,9 +1,6 @@
 package com.coohomeless.models;
 
 import com.strongloop.android.loopback.Model;
-import com.strongloop.android.remoting.Repository;
-
-import java.util.Map;
 
 public class ContributorModel extends Model {
 
