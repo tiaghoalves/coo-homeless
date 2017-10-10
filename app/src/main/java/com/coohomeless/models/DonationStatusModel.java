@@ -7,7 +7,7 @@ public class DonationStatusModel extends Model {
     private Integer idDonationStatus;
     private String type;
 
-    public DonationModel(Integer idDonationStatus, String type) {
+    public DonationStatusModel(Integer idDonationStatus, String type) {
         this.idDonationStatus = idDonationStatus;
         this.type = type;
     }

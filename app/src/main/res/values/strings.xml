@@ -5,4 +5,6 @@
     <string name="n_o_possui_conta_ainda_crie_a_sua">Não possui conta ainda? Crie a sua</string>
     <string name="password">Password</string>
     <string name="logo">Logo</string>
+    <string name="senha">Senha</string>
+    <string name="e_mail">E-mail</string>
 </resources>

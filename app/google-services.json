@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1092842797528",
+    "firebase_url": "https://coo-homeless.firebaseio.com",
+    "project_id": "coo-homeless",
+    "storage_bucket": "coo-homeless.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092842797528:android:ed60e5ce211db053",
+        "android_client_info": {
+          "package_name": "com.coohomeless"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1092842797528-ditrfq0ug5k2aee7ka066mtpq240erpa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFO4sB1LmsfQaDEJE32ojdiN31O0DCLlM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
