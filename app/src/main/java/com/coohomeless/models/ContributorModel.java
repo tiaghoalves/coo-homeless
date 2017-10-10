@@ -5,12 +5,12 @@ import com.strongloop.android.loopback.Model;
 public class ContributorModel extends Model {
 
     private Integer idContributor;
-    private String nome;
+    private String name;
     private Integer cpf;
 
-    public ContributorModel(Integer idContributor, String nome, Integer cpf) {
+    public ContributorModel(Integer idContributor, String name, Integer cpf) {
         this.idContributor = idContributor;
-        this.nome = nome;
+        this.name = name;
         this.cpf = cpf;
     }
 
