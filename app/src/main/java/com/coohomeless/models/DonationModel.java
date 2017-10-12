@@ -10,4 +10,11 @@ public class DonationModel extends Model {
         this.idDonation = idDonation;
     }
 
+	public Integer getIdDonation() {
+		return idDonation;
+	}
+
+	public void setIdDonation(Integer idDonation) {
+		this.idDonation = idDonation;
+	}
 }

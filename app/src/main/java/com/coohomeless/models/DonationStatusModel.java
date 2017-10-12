@@ -12,4 +12,19 @@ public class DonationStatusModel extends Model {
         this.type = type;
     }
 
+	public Integer getIdDonationStatus() {
+		return idDonationStatus;
+	}
+
+	public void setIdDonationStatus(Integer idDonationStatus) {
+		this.idDonationStatus = idDonationStatus;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

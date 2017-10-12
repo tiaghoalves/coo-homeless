@@ -14,5 +14,28 @@ public class ContributorModel extends Model {
         this.cpf = cpf;
     }
 
+	public Integer getIdContributor() {
+		return idContributor;
+	}
+
+	public void setIdContributor(Integer idContributor) {
+		this.idContributor = idContributor;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(Integer cpf) {
+		this.cpf = cpf;
+	}
 
 }
