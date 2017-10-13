@@ -9,12 +9,12 @@ public class OrganizationModel extends Model {
     private String descOrganization;
     private Integer cnpj;
 
-    public OrganizationModel(Integer idOrganization, String name, String descOrganization, Integer cpf) {
+    public OrganizationModel(Integer idOrganization, String name, String descOrganization, Integer cnpj) {
         this.idOrganization = idOrganization;
         this.name = name;
         this.descOrganization = descOrganization;
-        this.cnpj = cnpj;
-    }
+		this.cnpj = cnpj;
+	}
 
 	public Integer getIdOrganization() {
 		return idOrganization;

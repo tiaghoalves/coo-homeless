@@ -7,4 +7,5 @@
     <string name="logo">Logo</string>
     <string name="senha">Senha</string>
     <string name="e_mail">E-mail</string>
+    <string name="auth_failed">Authentication failed</string>
 </resources>

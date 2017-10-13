@@ -2,13 +2,15 @@ package com.coohomeless.models;
 
 import com.strongloop.android.loopback.Model;
 
+import java.util.Calendar;
+
 public class MeetingPointModel extends Model {
 
     private Integer idMeetingPoint;
-    private date createdAt;
-    private date updatedAt;
+    private Calendar createdAt;
+    private Calendar updatedAt;
 
-   public HomelessModel(Integer idMeetingPoint, date createdAt, date updatedAt) {
+   public MeetingPointModel(Integer idMeetingPoint, Calendar createdAt, Calendar updatedAt) {
       this.idMeetingPoint = idMeetingPoint;
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
@@ -22,19 +24,19 @@ public class MeetingPointModel extends Model {
 		this.idMeetingPoint = idMeetingPoint;
 	}
 
-	public date getCreatedAt() {
+	public Calendar getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(date createdAt) {
+	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public date getUpdatedAt() {
+	public Calendar getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(date updatedAt) {
+	public void setUpdatedAt(Calendar updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 }
