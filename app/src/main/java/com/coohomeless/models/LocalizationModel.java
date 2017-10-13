@@ -2,15 +2,17 @@ package com.coohomeless.models;
 
 import com.strongloop.android.loopback.Model;
 
+import java.util.Calendar;
+
 public class LocalizationModel extends Model {
 
     private Integer idLocalization;
     private Double latitude;
     private Double longitude;
-    private date createdAt;
-    private date updatedAt;
+    private Calendar createdAt;
+    private Calendar updatedAt;
 
-    public LocalizationModel(Integer idLocalization, Double latitude, Double longitude, date createdAt, date updatedAt) {
+    public LocalizationModel(Integer idLocalization, Double latitude, Double longitude, Calendar createdAt, Calendar updatedAt) {
         this.idLocalization = idLocalization;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -42,19 +44,19 @@ public class LocalizationModel extends Model {
 		this.longitude = longitude;
 	}
 
-	public date getCreatedAt() {
+	public Calendar getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(date createdAt) {
+	public void setCreatedAt(Calendar createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public date getUpdatedAt() {
+	public Calendar getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(date updatedAt) {
+	public void setUpdatedAt(Calendar updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 }
