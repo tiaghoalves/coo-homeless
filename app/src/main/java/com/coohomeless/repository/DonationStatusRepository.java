@@ -1,6 +1,6 @@
 package com.coohomeless.repository;
 
-import com.coohomeless.models.DonationStatusModel;
+import com.coohomeless.models.donation.DonationStatusModel;
 import com.strongloop.android.loopback.ModelRepository;
 
 public class DonationStatusRepository extends ModelRepository<DonationStatusModel> {

@@ -1,6 +1,6 @@
 package com.coohomeless.repository;
 
-import com.coohomeless.models.LocalizationModel;
+import com.coohomeless.models.localization.LocalizationModel;
 import com.strongloop.android.loopback.ModelRepository;
 
 public class LocalizationRepository extends ModelRepository<LocalizationModel> {

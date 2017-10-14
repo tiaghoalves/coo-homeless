@@ -1,4 +1,4 @@
-package com.coohomeless.models;
+package com.coohomeless.models.meetingPoint;
 
 import com.strongloop.android.loopback.Model;
 

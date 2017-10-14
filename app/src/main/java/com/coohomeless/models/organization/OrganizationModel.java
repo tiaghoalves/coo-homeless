@@ -1,4 +1,4 @@
-package com.coohomeless.models;
+package com.coohomeless.models.organization;
 
 import com.strongloop.android.loopback.Model;
 
