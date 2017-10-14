@@ -26,4 +26,65 @@ public class HomelessModel extends Model {
       this.updatedAt = updatedAt;
    }
 
+    public Integer getIdHomeless() { return idHomeless; }
+
+    public void setIdHomeless(Integer idHomeless) {
+        this.idHomeless = idHomeless;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(String anonymous) {
+        this.anonymous = anonymous;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getBackground() {
+        return background;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public String getStatusType() {
+        return statusType;
+    }
+
+    public void setStatusType(String statusType) {
+        this.statusType = statusType;
+    }
+
+    public Calendar getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Calendar createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Calendar getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Calendar updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
