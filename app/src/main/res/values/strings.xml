@@ -8,4 +8,6 @@
     <string name="senha">Senha</string>
     <string name="e_mail">E-mail</string>
     <string name="auth_failed">Authentication failed</string>
+    <string name="logo_splash_screen">Logo Splash Screen</string>
+    <string name="fa_a_sua_parte">Faça sua parte</string>
 </resources>
