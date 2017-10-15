@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1092842797528-jktmobp0p1eoukg4a9tqmfms943v29br.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.coohomeless",
+            "certificate_hash": "f02c0ecea0791e6be5f21e6410a718c6d9d0db06"
+          }
+        },
+        {
           "client_id": "1092842797528-ditrfq0ug5k2aee7ka066mtpq240erpa.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1092842797528-ditrfq0ug5k2aee7ka066mtpq240erpa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

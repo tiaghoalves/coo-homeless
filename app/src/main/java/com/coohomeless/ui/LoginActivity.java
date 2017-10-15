@@ -3,7 +3,7 @@ package com.coohomeless.ui;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,33 +22,39 @@ public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     @BindView(R.id.input_email) EditText _emailText;
     @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.link_signup) Button _loginButton;
-    @BindView(R.id.btn_login) TextView _signupLink;
+    @BindView(R.id.btn_login) Button _loginButton;
+    @BindView(R.id.link_signup) TextView _signupLink;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                //signup();
+                login();
             }
         });
 
         _signupLink.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
-                finish();
+                // Start the Signup activity
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
-
     }
+
     public void login() {
         Log.d(TAG, "Login");
 
@@ -59,7 +66,7 @@ public class LoginActivity extends Activity {
         _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.Theme_Design);
+                R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -69,15 +76,14 @@ public class LoginActivity extends Activity {
 
         // TODO: Implement your own authentication logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                // On complete call either onLoginSuccess or onLoginFailed
+                onLoginSuccess();
+                // onLoginFailed();
+                progressDialog.dismiss();
+            }
+        }, 3000);
     }
 
 
@@ -116,7 +122,6 @@ public class LoginActivity extends Activity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
             valid = false;
@@ -133,4 +138,5 @@ public class LoginActivity extends Activity {
 
         return valid;
     }
+
 }

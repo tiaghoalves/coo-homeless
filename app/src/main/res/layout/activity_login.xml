@@ -11,62 +11,59 @@
     android:weightSum="1"
     tools:context="com.coohomeless.ui.LoginActivity">
 
-        <ImageView
-            android:id="@+id/logo"
-            android:layout_width="317dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
-            android:layout_weight="0.82"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/icon_v1" />
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="317dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
+        android:layout_weight="0.89"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/icon_v1_canto" />
 
-        <!-- Email Label -->
-        <android.support.design.widget.TextInputLayout
+    <!-- Email Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="281dp"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="40dp"
+            android:layout_weight="0.03"
+            android:hint="@string/e_mail"
+            android:inputType="textEmailAddress" />
+    </android.support.design.widget.TextInputLayout>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/input_email"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:inputType="textEmailAddress"
-                tools:text="@string/e_mail" />
+    <!-- Password Label -->
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="281dp"
+        android:layout_height="wrap_content">
 
-        </android.support.design.widget.TextInputLayout>
-
-        <!-- Password Label -->
-        <android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/input_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="40dp"
+            android:layout_weight="0.03"
+            android:hint="@string/senha"
+            android:inputType="textPassword" />
+    </android.support.design.widget.TextInputLayout>
 
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:inputType="textPassword"
-                tools:text="@string/senha" />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="@string/login" />
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            android:layout_width="282dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:padding="12dp"
-            android:text="@string/login" />
-
-        <TextView
-            android:id="@+id/link_signup"
-            android:layout_width="280dp"
-            android:layout_height="33dp"
-            android:layout_marginBottom="24dp"
-            android:gravity="center"
-            android:text="@string/n_o_possui_conta_ainda_crie_a_sua"
-            android:textSize="16sp" />
-
+    <TextView
+        android:id="@+id/link_signup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/n_o_possui_conta_ainda_crie_a_sua"
+        android:textSize="16sp" />
 
 </LinearLayout>
