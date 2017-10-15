@@ -17,7 +17,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:layout_weight="0.89"
+        android:layout_weight="0.8"
         android:contentDescription="@string/logo"
         android:src="@drawable/icon_v1_canto" />
 
@@ -49,13 +49,15 @@
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.v7.widget.AppCompatButton
+    <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="24dp"
         android:gravity="center"
+        android:textColor="@color/colorSecundaryPink"
+        android:style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:text="@string/login" />
 
     <TextView

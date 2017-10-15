@@ -5,16 +5,16 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:paddingRight="20dp"
+    android:weightSum="1">
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="300dp"
-        android:layout_height="10dp"
+        android:layout_width="361dp"
+        android:layout_height="159dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="0.82"
-        android:src="@drawable/icon_v1_canto" />
+        android:src="@drawable/icon_v1_canto"
+        android:layout_weight="0.85" />
 
     <!--  Name Label -->
     <android.support.design.widget.TextInputLayout
@@ -66,9 +66,9 @@
         android:id="@+id/btn_signup"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="24dp"
-        android:padding="12dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:padding="20dp"
         android:text="@string/criar_conta" />
 
     <TextView
