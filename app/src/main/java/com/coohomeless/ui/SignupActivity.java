@@ -1,6 +1,7 @@
 package com.coohomeless.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
+                Intent toLogin = new Intent(SignupActivity.this, LoginActivity.class);
+                startActivity(toLogin);
                 finish();
             }
         });
@@ -114,8 +117,8 @@ public class SignupActivity extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() > 6) {
+            _passwordText.setError("at least 6 alphanumeric characters");
             valid = false;
         } else {
             _passwordText.setError(null);
