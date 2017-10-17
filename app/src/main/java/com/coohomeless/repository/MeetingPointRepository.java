@@ -6,6 +6,6 @@ import com.strongloop.android.loopback.ModelRepository;
 public class MeetingPointRepository extends ModelRepository<MeetingPointModel> {
 
     public MeetingPointRepository() {
-        super("meeting_point", "meeting_point", MeetingPointModel.class);
+        super("meeting_point", "meeting_points", MeetingPointModel.class);
     }
 }

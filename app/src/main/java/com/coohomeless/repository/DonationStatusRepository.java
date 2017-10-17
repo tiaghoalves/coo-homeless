@@ -6,7 +6,7 @@ import com.strongloop.android.loopback.ModelRepository;
 public class DonationStatusRepository extends ModelRepository<DonationStatusModel> {
 
     public DonationStatusRepository() {
-        super("donation_status", "donation_status", DonationStatusModel.class);
+        super("donation_status", "donation_statuses", DonationStatusModel.class);
     }
 
 }

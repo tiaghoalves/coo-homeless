@@ -6,6 +6,6 @@ import com.strongloop.android.loopback.ModelRepository;
 public class LocalizationRepository extends ModelRepository<LocalizationModel> {
 
     public LocalizationRepository() {
-        super("localization", "localization", LocalizationModel.class);
+        super("localization", "localizations", LocalizationModel.class);
     }
 }

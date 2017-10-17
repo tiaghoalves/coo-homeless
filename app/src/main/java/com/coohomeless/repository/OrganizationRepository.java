@@ -6,6 +6,6 @@ import com.strongloop.android.loopback.ModelRepository;
 public class OrganizationRepository extends ModelRepository<OrganizationModel> {
 
     public OrganizationRepository() {
-        super("organization", "organization", OrganizationModel.class);
+        super("organization", "organizations", OrganizationModel.class);
     }
 }
