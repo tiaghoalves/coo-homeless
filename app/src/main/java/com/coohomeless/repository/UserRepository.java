@@ -6,6 +6,6 @@ import com.strongloop.android.loopback.ModelRepository;
 public class UserRepository extends ModelRepository<UserModel> {
 
     public UserRepository(String className) {
-        super(className);
+        super("users", "users", UserModel.class);
     }
 }

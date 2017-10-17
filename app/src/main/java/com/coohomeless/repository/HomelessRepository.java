@@ -5,8 +5,7 @@ import com.strongloop.android.loopback.ModelRepository;
 
 public class HomelessRepository extends ModelRepository<HomelessModel> {
 
-    public HomelessRepository(String className) {
-
-        super(className);
+    public HomelessRepository() {
+        super("homeless", "homeless", HomelessModel.class);
     }
 }

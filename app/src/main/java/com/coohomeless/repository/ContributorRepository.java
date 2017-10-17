@@ -5,7 +5,7 @@ import com.strongloop.android.loopback.ModelRepository;
 
 public class ContributorRepository extends ModelRepository<ContributorModel> {
 
-    public ContributorRepository(String className) {
-        super("contributor", "contributors", ContributorModel.class);
+    public ContributorRepository() {
+        super("contributor", "contributor", ContributorModel.class);
     }
 }
