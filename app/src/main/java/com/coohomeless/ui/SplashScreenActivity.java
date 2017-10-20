@@ -10,7 +10,7 @@ import com.coohomeless.R;
 
 public class SplashScreenActivity extends Activity {
 
-    private static final int SPLASH_SCREEN_DELAY = 5000;
+    private static final int SPLASH_SCREEN_DELAY = 4000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
