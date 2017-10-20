@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,13 +18,13 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.61"
         android:contentDescription="@string/logo"
         android:src="@drawable/icon_v1_canto" />
 
     <!-- Email Label -->
     <android.support.design.widget.TextInputLayout
-        android:layout_width="281dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
@@ -36,35 +37,60 @@
     </android.support.design.widget.TextInputLayout>
 
     <!-- Password Label -->
+
     <android.support.design.widget.TextInputLayout
-        android:layout_width="281dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="0.03"
             android:hint="@string/senha"
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="24dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:textColor="@color/colorSecundaryPink"
-        android:text="@string/login" />
-
-    <TextView
-        android:id="@+id/link_signup"
-        android:layout_width="fill_parent"
+    <ProgressBar
+        android:id="@+id/loading_progress_bar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/n_o_possui_conta_ainda_crie_a_sua"
-        android:textSize="16sp" />
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:elevation="10dp"
+            android:outlineProvider="bounds"
+            android:text="@string/login"
+            android:layout_weight="0.70" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_signup"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:elevation="10dp"
+            android:outlineProvider="bounds"
+            android:text="@string/criar_conta"
+            android:layout_weight="0.3"/>
+    </LinearLayout>
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>

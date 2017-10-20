@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends Activity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.link_signup) TextView _signupLink;
+    @BindView(R.id.loading_progress_bar) ProgressBar loadProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,6 @@ public class LoginActivity extends Activity {
         ButterKnife.bind(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 login();
@@ -65,23 +66,29 @@ public class LoginActivity extends Activity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.Theme_AppCompat_DayNight_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
-
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
+                String email = _emailText.getText().toString();
+                String password = _passwordText.getText().toString();
+
                 // On complete call either onLoginSuccess or onLoginFailed
-                onLoginSuccess();
-                // onLoginFailed();
-                progressDialog.dismiss();
+                if(email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                    onLoginFailed();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
+
+                    loadProgressBar.setVisibility(View.VISIBLE);
+                    onLoginSuccess();
+                }
+
             }
         }, 3000);
     }

@@ -9,11 +9,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_coohomeless"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/CooHomelessTheme">
         <activity
             android:name=".ui.SplashScreenActivity"
-            android:label="Launch Screen"
-            android:theme="@style/MyMaterialTheme.Base">
+            android:label="Launch Splash Screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
