@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
@@ -10,7 +10,7 @@
     android:paddingRight="24dp"
     android:paddingTop="5dp"
     android:weightSum="1"
-    tools:context="com.coohomeless.ui.LoginActivity">
+    tools:context="com.coohomeless.ui.auth.LoginActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -18,7 +18,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:layout_weight="0.61"
+        android:layout_weight="0.7"
         android:contentDescription="@string/logo"
         android:src="@drawable/icon_v1_canto" />
 
@@ -50,43 +50,49 @@
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
-    <ProgressBar
-        android:id="@+id/loading_progress_bar"
-        style="@style/Widget.AppCompat.ProgressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminate="true"
-        android:visibility="gone" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
         android:weightSum="1">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_login"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:elevation="10dp"
-            android:outlineProvider="bounds"
-            android:text="@string/login"
-            android:layout_weight="0.70" />
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btn_signup"
-            style="@style/Widget.AppCompat.Button.Colored"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:elevation="10dp"
-            android:outlineProvider="bounds"
-            android:text="@string/criar_conta"
-            android:layout_weight="0.3"/>
     </LinearLayout>
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginBottom="5dp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorNormal="@color/colorSecundaryPink"
+        custom:pb_colorPressed="@color/colorPrimaryDark"
+        custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_textComplete="Success"
+        custom:pb_textProgress="Loading"
+        custom:pb_textError="Error"
+        custom:pb_colorError="@color/red_error" />
+
+    <com.dd.processbutton.iml.ActionProcessButton
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign up"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:layout_marginBottom="5dp"
+        custom:pb_colorComplete="@color/green_complete"
+        custom:pb_colorError="@color/red_error"
+        custom:pb_colorNormal="@color/colorSecundaryPink"
+        custom:pb_colorPressed="@color/colorPrimaryDark"
+        custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_textComplete="Success"
+        custom:pb_textError="Error"
+        custom:pb_textProgress="Loading" />
+
 
     <com.google.android.gms.common.SignInButton
         android:layout_width="match_parent"

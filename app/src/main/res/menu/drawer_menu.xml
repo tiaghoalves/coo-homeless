@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_filmes"
-        android:icon="@drawable/ic_movie"
-        android:title="Em cartaz" />
+        android:id="@+id/action_map"
+        android:icon="@drawable/ic_map"
+        android:title="Mapa" />
     <item
-        android:id="@+id/action_favoritos"
+        android:id="@+id/action_location"
         android:icon="@drawable/ic_favorite"
-        android:title="Favoritos" />
+        android:title="Localizações" />
     <item
-        android:id="@+id/action_atores"
-        android:icon="@drawable/ic_people"
-        android:title="Atores" />
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Configurações" />
 </menu>

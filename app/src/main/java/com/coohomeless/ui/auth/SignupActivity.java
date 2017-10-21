@@ -1,4 +1,4 @@
-package com.coohomeless.ui;
+package com.coohomeless.ui.auth;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package com.coohomeless.ui;
+package com.coohomeless.ui.auth;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -30,7 +30,6 @@ public class LoginActivity extends Activity {
     @BindView(R.id.input_password) EditText _passwordText;
     @BindView(R.id.btn_login) Button _loginButton;
     @BindView(R.id.btn_signup) TextView _signupLink;
-    @BindView(R.id.loading_progress_bar) ProgressBar loadProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,8 +83,6 @@ public class LoginActivity extends Activity {
                     onLoginFailed();
                 } else {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
-
-                    loadProgressBar.setVisibility(View.VISIBLE);
                     onLoginSuccess();
                 }
 
