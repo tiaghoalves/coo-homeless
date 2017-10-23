@@ -3,9 +3,10 @@ package com.coohomeless.models.user;
 import com.strongloop.android.loopback.Model;
 import com.strongloop.android.loopback.User;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class UserModel extends Model {
+public class UserModel extends Model implements Serializable {
 
     private Integer idUser;
     private String fullName;
