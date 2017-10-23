@@ -1,6 +1,7 @@
 package com.coohomeless.models.user;
 
 import com.strongloop.android.loopback.Model;
+import com.strongloop.android.loopback.User;
 
 import java.util.Calendar;
 
@@ -15,8 +16,10 @@ public class UserModel extends Model {
     private Calendar createdAt;
     private Calendar updatedAt;
 
+    public UserModel() {
+    }
 
-   public UserModel(Integer idUser, String fullName, String login, String email, String password, String urlProfileImage, Calendar createdAt, Calendar updatedAt) {
+    public UserModel(Integer idUser, String fullName, String login, String email, String password, String urlProfileImage, Calendar createdAt, Calendar updatedAt) {
       this.idUser = idUser;
       this.fullName = fullName;
       this.login = login;
@@ -25,9 +28,9 @@ public class UserModel extends Model {
       this.urlProfileImage = urlProfileImage;
       this.createdAt = createdAt;
       this.updatedAt = updatedAt;
-    }
+   }
 
-	public Integer getIdUser() {
+   public Integer getIdUser() {
 		return idUser;
 	}
 
