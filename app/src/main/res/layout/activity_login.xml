@@ -14,11 +14,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="317dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"
-        android:layout_weight="0.7"
         android:contentDescription="@string/logo"
         android:src="@drawable/icon_v1_canto" />
 
@@ -26,22 +25,18 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_weight="0.03"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress" />
     </android.support.design.widget.TextInputLayout>
 
     <!-- Password Label -->
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <android.support.design.widget.TextInputEditText
             android:id="@+id/input_password"
             android:layout_width="match_parent"
@@ -50,45 +45,38 @@
             android:inputType="textPassword" />
     </android.support.design.widget.TextInputLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp"
-        android:weightSum="1">
-
-    </LinearLayout>
 
     <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/login"
         android:textColor="@android:color/white"
         android:textSize="18sp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         custom:pb_colorComplete="@color/green_complete"
         custom:pb_colorNormal="@color/colorSecundaryPink"
         custom:pb_colorPressed="@color/colorPrimaryDark"
         custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_colorError="@color/red_error"
         custom:pb_textComplete="Success"
         custom:pb_textProgress="Loading"
-        custom:pb_textError="Error"
-        custom:pb_colorError="@color/red_error" />
+        custom:pb_textError="Error" />
 
     <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign up"
+        android:text="@string/cadastrar"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:layout_marginBottom="5dp"
         custom:pb_colorComplete="@color/green_complete"
-        custom:pb_colorError="@color/red_error"
         custom:pb_colorNormal="@color/colorSecundaryPink"
         custom:pb_colorPressed="@color/colorPrimaryDark"
         custom:pb_colorProgress="@color/purple_progress"
+        custom:pb_colorError="@color/red_error"
         custom:pb_textComplete="Success"
         custom:pb_textError="Error"
         custom:pb_textProgress="Loading" />

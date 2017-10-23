@@ -3,19 +3,31 @@
     <style name="CooHomelessTheme.Base" parent="Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
+
+        <!-- Main Colors -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorSecundaryPink</item>
     </style>
 
-    <style name="CircularProgress" parent="Theme.AppCompat.Light">
+    <style name="MyActionBar.base" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- This is the styling for action bar -->
+        <item name="actionBarStyle">@style/CooHomelessTheme.ActionBar</item>
+    </style>
+
+    <style name="CooHomelessTheme.ActionBar" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="CircularProgress" parent="CooHomelessTheme.Base">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorSecundaryPink</item>
     </style>
-    
-    <style name="FlatButton" parent="Theme.AppCompat.Light">
+
+    <style name="FlatButton" parent="CooHomelessTheme.Base">
         <item name="android:buttonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="colorButtonNormal">@color/colorSecundaryPink</item>

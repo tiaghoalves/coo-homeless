@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_map"
-        android:icon="@drawable/ic_map"
+        android:icon="@drawable/ic_map_black_36dp"
         android:title="Mapa" />
     <item
         android:id="@+id/action_location"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_person_pin_circle_black_36dp"
         android:title="Localizações" />
     <item
         android:id="@+id/action_settings"
-        android:icon="@drawable/ic_settings"
+        android:icon="@drawable/ic_settings_black_36dp"
         android:title="Configurações" />
 </menu>

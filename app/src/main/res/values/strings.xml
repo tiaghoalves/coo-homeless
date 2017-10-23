@@ -15,4 +15,6 @@
     <string name="nome">Nome</string>
     <string name="drawer_open">Abrir navegação</string>
     <string name="drawer_close">Fechar navegação</string>
+    <string name="sign_up">Sign up</string>
+    <string name="cadastrar">Cadastrar</string>
 </resources>

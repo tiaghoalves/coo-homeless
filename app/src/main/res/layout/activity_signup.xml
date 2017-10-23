@@ -11,10 +11,9 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="146dp"
+        android:layout_height="128dp"
         android:layout_gravity="center"
-        android:src="@drawable/icon_v1_canto"
-        android:layout_weight="0.17" />
+        android:src="@drawable/icon_v1_canto" />
 
     <!--  Name Label -->
     <android.support.design.widget.TextInputLayout

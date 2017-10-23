@@ -9,6 +9,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
+        android:debuggable="true"
         android:theme="@style/CooHomelessTheme">
         <activity
             android:name=".ui.SplashScreenActivity"
@@ -20,12 +21,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:label="Login" />
         <activity
-            android:name=".ui.SignupActivity"
+            android:name=".ui.auth.SignUpActivity"
             android:label="Sign up" />
-        <activity android:name=".ui.MenuActivity"></activity>
+        <activity
+            android:name=".ui.MenuActivity"
+            android:label="Menu" />
     </application>
 
 </manifest>

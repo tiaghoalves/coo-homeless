@@ -1,20 +1,19 @@
 package com.coohomeless.ui.auth;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
-import com.google.firebase.auth.FirebaseAuth;
+import com.coohomeless.ui.MenuActivity;
+import com.dd.processbutton.iml.ActionProcessButton;
+import com.strongloop.android.loopback.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,13 +22,10 @@ public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
-    private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
-    @BindView(R.id.input_email) EditText _emailText;
-    @BindView(R.id.input_password) EditText _passwordText;
-    @BindView(R.id.btn_login) Button _loginButton;
-    @BindView(R.id.btn_signup) TextView _signupLink;
+    @BindView(R.id.input_email) EditText inputEmail;
+    @BindView(R.id.input_password) EditText inputPassword;
+    @BindView(R.id.btn_login) ActionProcessButton btnLogin;
+    @BindView(R.id.btn_signup) ActionProcessButton btnSignUp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,52 +33,55 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-        _loginButton.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
+                btnLogin.setProgress(1);
+
                 login();
             }
         });
 
-        _signupLink.setOnClickListener(new View.OnClickListener() {
-
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnSignUp.setMode(ActionProcessButton.Mode.ENDLESS);
+                btnSignUp.setProgress(1);
+
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
     }
 
     public void login() {
-        Log.d(TAG, "Login");
-
         if (!validate()) {
             onLoginFailed();
             return;
         }
 
-        _loginButton.setEnabled(false);
-
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this, R.style.Theme_AppCompat_DayNight_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
+        btnLogin.setEnabled(false);
 
         // TODO: Implement your own authentication logic here.
-
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                String email = _emailText.getText().toString();
-                String password = _passwordText.getText().toString();
+                String email = inputEmail.getText().toString();
+                String password = inputPassword.getText().toString();
 
                 // On complete call either onLoginSuccess or onLoginFailed
                 if(email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Wrong Credentials", Toast.LENGTH_SHORT).show();
                     onLoginFailed();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+
+                    User user = new User();
+                    user.setEmail(email);
+                    user.setPassword(password);
+                    user.setEmailVerified(true);
+
                     onLoginSuccess();
                 }
 
@@ -110,34 +109,34 @@ public class LoginActivity extends Activity {
     }
 
     public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
+        Intent toMenu = new Intent(LoginActivity.this, MenuActivity.class);
+        startActivity(toMenu);
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        _loginButton.setEnabled(true);
+        btnLogin.setProgress(-1);
+        btnLogin.setEnabled(true);
     }
 
     public boolean validate() {
         boolean valid = true;
 
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            inputEmail.setError("endereço de e-mail inválido");
             valid = false;
         } else {
-            _emailText.setError(null);
+            inputEmail.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
+        if (password.isEmpty() || password.length() < 6) {
+            inputPassword.setError("senha deve conter até 6 caracteres");
             valid = false;
         } else {
-            _passwordText.setError(null);
+            inputPassword.setError(null);
         }
 
         return valid;

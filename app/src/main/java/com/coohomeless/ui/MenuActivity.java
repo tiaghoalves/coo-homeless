@@ -2,15 +2,22 @@ package com.coohomeless.ui;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.coohomeless.R;
@@ -28,8 +35,12 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        // As we're using a Toolbar, we should retrieve it and set it
+        // to be our ActionBar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null){
+        if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -59,11 +70,20 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        View headerView = mNavigationView.getChildAt(0);
-        TextView userName = (TextView) findViewById(R.id.txtName);
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView userName = (TextView) headerView.findViewById(R.id.txtName);
+        Bundle user = getIntent().getExtras().getBundle("user");
+
         userName.setText("Chico Homeless");
 
         selectItem(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.drawer_menu, menu);
+        return true;
     }
 
     private void selectItem(int position) {
@@ -94,9 +114,6 @@ public class MenuActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)){
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mDrawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 }
