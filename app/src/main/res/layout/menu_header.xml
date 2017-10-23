@@ -7,8 +7,8 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:foregroundGravity="top"
-        android:src="@drawable/ic_user_avatar" />
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_person_black_36dp" />
 
     <TextView
         android:id="@+id/txtName"

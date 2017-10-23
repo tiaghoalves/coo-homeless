@@ -46,6 +46,7 @@ public class MenuActivity extends AppCompatActivity {
         }
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setFitsSystemWindows(true);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
@@ -71,9 +72,8 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         View headerView = mNavigationView.getHeaderView(0);
-        TextView userName = (TextView) headerView.findViewById(R.id.txtName);
-        Bundle user = getIntent().getExtras().getBundle("user");
-
+        TextView userName = headerView.findViewById(R.id.txtName);
+//        Bundle user = getIntent().getExtras().getBundle("user");
         userName.setText("Chico Homeless");
 
         selectItem(0);

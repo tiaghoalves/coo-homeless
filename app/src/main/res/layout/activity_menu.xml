@@ -15,7 +15,6 @@
         <!-- We use a Toolbar so that our drawer can be displayed
              in front of the action bar -->
         <android.support.v7.widget.Toolbar
-            style="@style/CooHomelessTheme.ActionBar"
             android:id="@+id/toolbar_menu"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
