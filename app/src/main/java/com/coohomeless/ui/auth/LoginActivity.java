@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coohomeless.R;
+import com.coohomeless.models.user.UserModel;
 import com.coohomeless.ui.MenuActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.strongloop.android.loopback.User;
@@ -76,15 +77,8 @@ public class LoginActivity extends Activity {
                     onLoginFailed();
                 } else {
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-
-                    User user = new User();
-                    user.setEmail(email);
-                    user.setPassword(password);
-                    user.setEmailVerified(true);
-
                     onLoginSuccess();
                 }
-
             }
         }, 3000);
     }
@@ -133,7 +127,7 @@ public class LoginActivity extends Activity {
         }
 
         if (password.isEmpty() || password.length() < 6) {
-            inputPassword.setError("senha deve conter até 6 caracteres");
+            inputPassword.setError("pelo menos 6 caracteres");
             valid = false;
         } else {
             inputPassword.setError(null);

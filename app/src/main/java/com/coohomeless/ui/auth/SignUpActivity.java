@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
+import com.coohomeless.models.user.UserModel;
+import com.coohomeless.ui.MenuActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,8 +53,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signup() {
-        Log.d(TAG, "Signup");
-
         if (!validate()) {
             onSignupFailed();
             return;
@@ -65,18 +65,24 @@ public class SignUpActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = _nameText.getText().toString();
-        String email = _emailText.getText().toString();
-        String password = _passwordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
         new Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        String name = _nameText.getText().toString();
+                        String email = _emailText.getText().toString();
+                        String password = _passwordText.getText().toString();
+
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess();
+                        UserModel user = new UserModel();
+                        user.setEmail(email);
+                        user.setPassword(password);
+                        user.setFullName(name);
+
+                        onSignupSuccess(user);
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
@@ -84,9 +90,16 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(UserModel user) {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+
+        Intent toLogin = new Intent(SignUpActivity.this, LoginActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("user", user);
+        toLogin.putExtra("user", bundle);
+
+        startActivity(toLogin);
         finish();
     }
 
@@ -104,21 +117,21 @@ public class SignUpActivity extends AppCompatActivity {
         String password = _passwordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+            _nameText.setError("pelo menos 3 caracteres");
             valid = false;
         } else {
             _nameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            _emailText.setError("enter a valid email address");
+            _emailText.setError("endereço de e-mail inválido");
             valid = false;
         } else {
             _emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() > 6) {
-            _passwordText.setError("at least 6 alphanumeric characters");
+            _passwordText.setError("pelo menos 6 caracteres");
             valid = false;
         } else {
             _passwordText.setError(null);
