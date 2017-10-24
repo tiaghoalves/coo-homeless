@@ -40,10 +40,10 @@ public class MenuActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setFitsSystemWindows(true);
@@ -52,6 +52,19 @@ public class MenuActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
         NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation);
+        if (mNavigationView != null) {
+            setupNavigationView(mNavigationView);
+        }
+
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView userName = headerView.findViewById(R.id.txtName);
+//        Bundle user = getIntent().getExtras().getBundle("user");
+        userName.setText("Chico Homeless");
+
+        selectItem(0);
+    }
+
+    private void setupNavigationView(NavigationView mNavigationView) {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -70,13 +83,6 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
         });
-
-        View headerView = mNavigationView.getHeaderView(0);
-        TextView userName = headerView.findViewById(R.id.txtName);
-//        Bundle user = getIntent().getExtras().getBundle("user");
-        userName.setText("Chico Homeless");
-
-        selectItem(0);
     }
 
     @Override

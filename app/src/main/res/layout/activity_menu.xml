@@ -11,18 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <!-- We use a Toolbar so that our drawer can be displayed
-             in front of the action bar -->
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_menu"
-            android:layout_height="wrap_content"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
-            android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary" />
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!-- The rest of your content view -->
+            <!-- We use a Toolbar so that our drawer can be displayed
+             in front of the action bar -->
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar_menu"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:minHeight="?attr/actionBarSize"
+                android:background="?attr/colorPrimary" />
 
+            <!-- The rest of your content view -->
+
+        </android.support.design.widget.AppBarLayout>
     </LinearLayout>
 
     <FrameLayout
