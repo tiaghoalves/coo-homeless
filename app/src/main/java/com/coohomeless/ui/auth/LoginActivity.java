@@ -4,16 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
 import com.coohomeless.models.user.UserModel;
 import com.coohomeless.ui.MenuActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.strongloop.android.loopback.User;
 
 import butterknife.BindView;
@@ -22,6 +27,12 @@ import butterknife.ButterKnife;
 public class LoginActivity extends Activity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
+    /* A reference to the Firebase */
+    private FirebaseAuth mAuth;
+
+    /* Listener for Firebase session changes */
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @BindView(R.id.input_email) EditText inputEmail;
     @BindView(R.id.input_password) EditText inputPassword;
@@ -33,6 +44,23 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +83,21 @@ public class LoginActivity extends Activity {
                 startActivityForResult(intent, REQUEST_SIGNUP);
             }
         });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     public void login() {
