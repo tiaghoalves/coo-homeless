@@ -24,42 +24,47 @@ import com.coohomeless.R;
 import com.coohomeless.ui.fragments.LocalizationFragment;
 import com.coohomeless.ui.fragments.MapFragment;
 import com.coohomeless.ui.fragments.SettingFragment;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import butterknife.BindView;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private FirebaseAuth mAuth;
+
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.navigation) NavigationView mNavigationView;
+    @BindView(R.id.toolbar_menu) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        // As we're using a Toolbar, we should retrieve it and set it
-        // to be our ActionBar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_menu);
-        setSupportActionBar(toolbar);
+        mAuth = FirebaseAuth.getInstance();
+
+        // As we're using a Toolbar, we should retrieve it and set it to be our ActionBar
+        setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
 
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerLayout.setFitsSystemWindows(true);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
 
-        NavigationView mNavigationView = (NavigationView) findViewById(R.id.navigation);
         if (mNavigationView != null) {
             setupNavigationView(mNavigationView);
         }
 
         View headerView = mNavigationView.getHeaderView(0);
         TextView userName = headerView.findViewById(R.id.txtName);
-//        Bundle user = getIntent().getExtras().getBundle("user");
-        userName.setText("Chico Homeless");
+        FirebaseUser user = mAuth.getCurrentUser();
+        userName.setText(user.getDisplayName());
 
         selectItem(0);
     }
