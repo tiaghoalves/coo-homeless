@@ -36,7 +36,7 @@ public class MenuActivity extends AppCompatActivity {
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation) NavigationView mNavigationView;
-    @BindView(R.id.toolbar_menu) Toolbar mToolbar;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +47,11 @@ public class MenuActivity extends AppCompatActivity {
 
         // As we're using a Toolbar, we should retrieve it and set it to be our ActionBar
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        // Display icon in the toolbar
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
 
         mDrawerLayout.setFitsSystemWindows(true);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
