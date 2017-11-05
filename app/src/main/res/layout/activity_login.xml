@@ -83,11 +83,9 @@
 
 
     <com.google.android.gms.common.SignInButton
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <com.facebook.login.widget.LoginButton
+        android:id="@+id/sign_in_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 
 </LinearLayout>
