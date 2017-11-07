@@ -192,6 +192,11 @@ public class LoginActivity extends BaseAuthActivity implements
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        if (id == R.id.input_email || id == R.id.input_password) {
+            btnLogin.setProgress(0);
+            btnSignUp.setProgress(0);
+        }
+
         if (id == R.id.btn_login) {
             btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
             btnLogin.setProgress(1);
@@ -208,9 +213,6 @@ public class LoginActivity extends BaseAuthActivity implements
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
 
-        } else if (id == R.id.input_email || id == R.id.input_password) {
-            btnLogin.setProgress(0);
-            btnSignUp.setProgress(0);
         }
     }
 

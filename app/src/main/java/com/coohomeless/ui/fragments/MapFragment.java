@@ -22,20 +22,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
-    MapView mapView;
-    GoogleMap mGoogleMap;
+    private MapView mMapView;
+    private GoogleMap mGoogleMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         // Gets the MapView from the XML layout and creates it
-        mapView = (MapView) v.findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
+        mMapView = (MapView) v.findViewById(R.id.map_view);
+        mMapView.onCreate(savedInstanceState);
 
         // Gets to GoogleMap from the MapView and does initialization stuff
-        mapView.getMapAsync(this);
-        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        mMapView.getMapAsync(this);
+//        mGoogleMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         if (checkExternalPermission()) {
             mGoogleMap.setMyLocationEnabled(true);
@@ -46,7 +46,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         // Updates the location and zoom of the MapView
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(43.1, -87.9), 10);
-        mGoogleMap.animateCamera(cameraUpdate);
+//        mGoogleMap.animateCamera(cameraUpdate);
 
         return v;
     }
@@ -60,21 +60,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onResume() {
-        mapView.onResume();
+        mMapView.onResume();
         super.onResume();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        mMapView.onDestroy();
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mapView.onLowMemory();
+        mMapView.onLowMemory();
     }
 
     private boolean checkExternalPermission() {

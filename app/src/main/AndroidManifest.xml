@@ -8,9 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <permission
-        android:name="com.example.permission.MAPS_RECEIVE"
+        android:name="com.coohomeless.permission.MAPS_RECEIVE"
         android:protectionLevel="signature"/>
-    <uses-permission android:name=".permission.MAPS_RECEIVE"/>
 
     <application
         android:allowBackup="true"
@@ -21,6 +20,11 @@
         android:roundIcon="@mipmap/ic_coohomeless"
         android:supportsRtl="true"
         android:theme="@style/CooHomelessTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+
         <activity
             android:name=".ui.SplashScreenActivity"
             android:label="Coo Homeless">
