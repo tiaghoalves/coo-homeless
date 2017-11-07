@@ -1,7 +1,6 @@
 package com.coohomeless.models.user;
 
 import com.strongloop.android.loopback.Model;
-import com.strongloop.android.loopback.User;
 
 import java.io.Serializable;
 import java.util.Calendar;

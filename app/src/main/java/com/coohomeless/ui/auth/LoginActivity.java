@@ -1,7 +1,6 @@
 package com.coohomeless.ui.auth;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import com.coohomeless.R;
 import com.coohomeless.ui.MenuActivity;
-import com.coohomeless.ui.SplashScreenActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -24,6 +22,9 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
@@ -70,6 +71,12 @@ public class LoginActivity extends BaseAuthActivity implements
     }
 
     @Override
+    public void onBackPressed() {
+        // disable going back to the MainActivity
+        moveTaskToBack(true);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -97,27 +104,36 @@ public class LoginActivity extends BaseAuthActivity implements
         } else {
             // Signed out, show unauthenticated UI.
             logout();
+            onLoginFailed();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
     }
 
     public void login(String email, String password) {
         if (!validate(email, password)) {
-            Toast.makeText(getApplicationContext(), "Login inválido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Login inválido.", Toast.LENGTH_SHORT).show();
             onLoginFailed();
             return;
         }
         btnLogin.setEnabled(false);
 
-        // TODO: Implement your own authentication logic
-        // On complete call either onLoginSuccess or onLoginFailed
-        Toast.makeText(getApplicationContext(), "Redirecionando...", Toast.LENGTH_SHORT).show();
-        onLoginSuccess();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = task.getResult().getUser();
+                            onLoginSuccess();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            onLoginFailed();
+                        }
+                    }
+                });
     }
 
     private void logout() {
@@ -129,7 +145,9 @@ public class LoginActivity extends BaseAuthActivity implements
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        Toast.makeText(getApplicationContext(), "Usuario deslogado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),
+                                "Usuario deslogado msg:" + status.getStatusMessage(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
     }
