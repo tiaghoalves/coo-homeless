@@ -77,15 +77,18 @@
         custom:pb_colorPressed="@color/colorPrimaryDark"
         custom:pb_colorProgress="@color/purple_progress"
         custom:pb_colorError="@color/red_error"
-        custom:pb_textComplete="Success"
-        custom:pb_textError="Error"
-        custom:pb_textProgress="Loading" />
-
+        custom:pb_textComplete="Sucesso"
+        custom:pb_textError="Erro"
+        custom:pb_textProgress="Carregando" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_google"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/sign_in_facebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
