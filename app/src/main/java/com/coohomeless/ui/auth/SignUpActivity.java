@@ -77,13 +77,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 });
 
-//        String name = nameText.getText().toString();
-//        String email = emailText.getText().toString();
-//        String password = passwordText.getText().toString();
-//        UserModel user = new UserModel();
-//        user.setEmail(email);
-//        user.setPassword(password);
-//        user.setFullName(name);
     }
 
     private void sendEmailVerification() {
