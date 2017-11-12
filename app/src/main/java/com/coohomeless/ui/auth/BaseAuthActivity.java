@@ -1,6 +1,7 @@
 package com.coohomeless.ui.auth;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +9,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class BaseAuthActivity extends AppCompatActivity {
+public class BaseAuthActivity extends FragmentActivity {
 
     private final String TAG = "BaseAuth";
 
