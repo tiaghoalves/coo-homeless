@@ -2,6 +2,7 @@ package com.coohomeless.ui;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,11 +16,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.coohomeless.R;
 import com.coohomeless.ui.fragments.LocalizationFragment;
 import com.coohomeless.ui.fragments.MapFragment;
 import com.coohomeless.ui.fragments.SettingFragment;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -124,6 +129,11 @@ public class MenuActivity extends AppCompatActivity {
 
         setTitle(title);
         mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    private void logout() {
+        // Firebase sign out
+        mAuth.signOut();
     }
 
     @Override
