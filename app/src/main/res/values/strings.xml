@@ -10,7 +10,7 @@
     <string name="auth_failed">Authentication failed</string>
     <string name="logo_splash_screen">Logo Splash Screen</string>
     <string name="fa_a_sua_parte">Faça sua parte</string>
-    <string name="j_possui_cadastro_login">Já possui cadastro? Login</string>
+    <string name="j_possui_cadastro_login"><u>Já possui cadastro? Login</u></string>
     <string name="criar_conta">Criar Conta</string>
     <string name="nome">Nome</string>
     <string name="drawer_open">Abrir navegação</string>

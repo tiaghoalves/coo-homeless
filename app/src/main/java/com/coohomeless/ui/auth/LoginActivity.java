@@ -2,6 +2,7 @@ package com.coohomeless.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.Patterns;
@@ -17,6 +18,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -34,6 +36,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +67,6 @@ public class LoginActivity extends BaseAuthActivity implements
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
-
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -78,7 +81,7 @@ public class LoginActivity extends BaseAuthActivity implements
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
         btnSignInFacebook.setReadPermissions("email", "public_profile");
-        btnSignInFacebook.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
@@ -101,6 +104,7 @@ public class LoginActivity extends BaseAuthActivity implements
         btnLogin.setOnClickListener(this);
         btnSignUp.setOnClickListener(this);
         btnSignInGoogle.setOnClickListener(this);
+        btnSignInFacebook.setOnClickListener(this);
 
         mAuth = super.getmAuth();
     }
@@ -112,6 +116,7 @@ public class LoginActivity extends BaseAuthActivity implements
         btnLogin.setProgress(0);
         btnSignUp.setProgress(0);
         inputEmail.setError(null);
+        inputPassword.setError(null);
     }
 
     @Override
@@ -129,7 +134,6 @@ public class LoginActivity extends BaseAuthActivity implements
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
-                // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
@@ -190,13 +194,11 @@ public class LoginActivity extends BaseAuthActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-//                            FirebaseUser user = task.getResult().getUser();
                             onLoginSuccess();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             onLoginFailed();
                         }
                     }
@@ -226,7 +228,14 @@ public class LoginActivity extends BaseAuthActivity implements
     }
 
     public void onLoginFailed() {
-        btnLogin.setProgress(-1);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                btnLogin.setProgress(-1);
+            }
+        }, 2000);
+
+        btnLogin.setProgress(0);
         btnLogin.setEnabled(true);
     }
 
@@ -280,6 +289,9 @@ public class LoginActivity extends BaseAuthActivity implements
         } else if (id == R.id.sign_in_google) {
             Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
             startActivityForResult(signInIntent, RC_SIGN_IN);
+
+        } else if (id == R.id.sign_in_facebook) {
+            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"));
         }
     }
 

@@ -88,6 +88,8 @@
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:text="@string/j_possui_cadastro_login"
+        android:textStyle="bold"
+        android:textAppearance="@color/blue_normal"
         android:textSize="16sp" />
 
 </LinearLayout>
