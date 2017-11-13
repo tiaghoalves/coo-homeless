@@ -30,7 +30,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         // Gets the MapView from the XML layout and creates it
-        mMapView = (MapView) v.findViewById(R.id.map_view);
+        mMapView = v.findViewById(R.id.map_view);
         mMapView.onCreate(savedInstanceState);
 
         // Gets to GoogleMap from the MapView and does initialization stuff

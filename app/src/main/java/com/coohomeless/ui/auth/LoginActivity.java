@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coohomeless.R;
-import com.coohomeless.ui.MenuActivity;
+import com.coohomeless.ui.IntroActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -222,8 +222,8 @@ public class LoginActivity extends BaseAuthActivity implements
     }
 
     public void onLoginSuccess() {
-        Intent toMenu = new Intent(LoginActivity.this, MenuActivity.class);
-        startActivity(toMenu);
+        Intent toIntro = new Intent(LoginActivity.this, IntroActivity.class);
+        startActivity(toIntro);
         finish();
     }
 

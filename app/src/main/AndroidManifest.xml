@@ -57,7 +57,8 @@
         <activity
             android:name=".ui.MenuActivity"
             android:label="Menu" />
-        <activity android:name=".ui.auth.BaseAuthActivity" />
+        <activity android:name=".ui.IntroActivity"
+            android:label="Intro" />
     </application>
 
 </manifest>
