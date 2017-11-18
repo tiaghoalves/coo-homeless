@@ -3,32 +3,29 @@ package com.coohomeless.models.user;
 import com.strongloop.android.loopback.Model;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 public class UserModel extends Model implements Serializable {
 
     private Integer idUser;
     private String fullName;
-    private String login;
-    private String email;
-    private String password;
+	private String email;
     private String urlProfileImage;
-    private Calendar createdAt;
-    private Calendar updatedAt;
+	private Integer userType;
+    private String createdAt;
+    private String updatedAt;
 
     public UserModel() {
     }
 
-    public UserModel(Integer idUser, String fullName, String login, String email, String password, String urlProfileImage, Calendar createdAt, Calendar updatedAt) {
-      this.idUser = idUser;
-      this.fullName = fullName;
-      this.login = login;
-      this.email = email;
-      this.password = password;
-      this.urlProfileImage = urlProfileImage;
-      this.createdAt = createdAt;
-      this.updatedAt = updatedAt;
-   }
+    public UserModel(Integer idUser, String fullName, String email, String urlProfileImage, Integer userType, String createdAt, String updatedAt) {
+        this.idUser = idUser;
+        this.fullName = fullName;
+		this.email = email;
+        this.urlProfileImage = urlProfileImage;
+        this.userType = userType;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
    public Integer getIdUser() {
 		return idUser;
@@ -46,13 +43,37 @@ public class UserModel extends Model implements Serializable {
 		this.fullName = fullName;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getUrlProfileImage() {
+		return this.urlProfileImage;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setUrlProfileImage(String urlProfileImage) {
+		this.urlProfileImage = urlProfileImage;
 	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(String updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
 
 	public String getEmail() {
 		return email;
@@ -60,37 +81,5 @@ public class UserModel extends Model implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getUrlProfileImage() {
-		return urlProfileImage;
-	}
-
-	public void setUrlProfileImage(String urlProfileImage) {
-		this.urlProfileImage = urlProfileImage;
-	}
-
-	public Calendar getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Calendar createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Calendar getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(Calendar updatedAt) {
-		this.updatedAt = updatedAt;
 	}
 }
