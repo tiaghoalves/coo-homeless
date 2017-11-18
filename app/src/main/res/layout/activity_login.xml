@@ -61,7 +61,7 @@
         custom:pb_colorProgress="@color/purple_progress"
         custom:pb_colorError="@color/red_error"
         custom:pb_textComplete="Success"
-        custom:pb_textProgress="Loading"
+        custom:pb_textProgress="Carregando"
         custom:pb_textError="Error" />
 
     <com.dd.processbutton.iml.ActionProcessButton
