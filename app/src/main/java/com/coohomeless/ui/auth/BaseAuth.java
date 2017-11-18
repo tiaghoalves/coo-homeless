@@ -9,12 +9,12 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class BaseAuthActivity extends FragmentActivity {
+public class BaseAuth extends FragmentActivity {
 
     private final String TAG = "BaseAuth";
 
     /* A reference to the Firebase */
-    protected FirebaseAuth mAuth;
+    protected static FirebaseAuth mAuth;
 
     /* Listener for Firebase session changes */
     protected FirebaseAuth.AuthStateListener mAuthListener;
@@ -23,9 +23,9 @@ public class BaseAuthActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
+        this.mAuth = FirebaseAuth.getInstance();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        this.mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -50,12 +50,16 @@ public class BaseAuthActivity extends FragmentActivity {
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
+        if (this.mAuthListener != null) {
+            this.mAuth.removeAuthStateListener(mAuthListener);
         }
     }
 
     public FirebaseAuth getmAuth() {
-        return mAuth;
+        return this.mAuth;
+    }
+
+    public static FirebaseUser getAuthUser(){
+        return mAuth.getCurrentUser();
     }
 }
