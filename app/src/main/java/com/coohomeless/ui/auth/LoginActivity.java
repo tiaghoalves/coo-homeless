@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.coohomeless.R;
+import com.coohomeless.models.user.UserModel;
 import com.coohomeless.ui.IntroActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.facebook.AccessToken;
@@ -42,7 +43,7 @@ import java.util.Arrays;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends BaseAuthActivity implements
+public class LoginActivity extends BaseAuth implements
         View.OnClickListener,
         GoogleApiClient.OnConnectionFailedListener {
 
@@ -52,6 +53,7 @@ public class LoginActivity extends BaseAuthActivity implements
 
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager mCallbackManager;
+    private UserModel userModel;
 
     @BindView(R.id.input_email) EditText inputEmail;
     @BindView(R.id.input_password) EditText inputPassword;
@@ -105,8 +107,9 @@ public class LoginActivity extends BaseAuthActivity implements
         btnSignUp.setOnClickListener(this);
         btnSignInGoogle.setOnClickListener(this);
         btnSignInFacebook.setOnClickListener(this);
-
         mAuth = super.getmAuth();
+
+        this.userModel = (UserModel) getIntent().getExtras().getSerializable("userModel");
     }
 
     @Override
@@ -207,7 +210,7 @@ public class LoginActivity extends BaseAuthActivity implements
 
     private void logout() {
         // Firebase sign out
-        mAuth.signOut();
+        super.mAuth.signOut();
 
         // Google sign out
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -223,18 +226,12 @@ public class LoginActivity extends BaseAuthActivity implements
 
     public void onLoginSuccess() {
         Intent toIntro = new Intent(LoginActivity.this, IntroActivity.class);
+        toIntro.putExtra("user", this.userModel);
         startActivity(toIntro);
         finish();
     }
 
     public void onLoginFailed() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                btnLogin.setProgress(-1);
-            }
-        }, 2000);
-
         btnLogin.setProgress(0);
         btnLogin.setEnabled(true);
     }
