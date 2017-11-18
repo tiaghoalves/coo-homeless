@@ -12,6 +12,7 @@
         android:protectionLevel="signature"/>
 
     <application
+        android:name=".adapters.ApiAdapter"
         android:allowBackup="true"
         android:debuggable="true"
         android:fullBackupContent="@xml/my_backup_rules"

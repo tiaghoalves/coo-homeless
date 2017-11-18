@@ -8,6 +8,9 @@ import com.strongloop.android.remoting.adapters.RestContractItem;
 public class ApiAdapter extends Application {
     RestAdapter adapter;
 
+    public ApiAdapter() {
+    }
+
     public RestAdapter getApiAdapter() {
         if (adapter == null) {
             // Instantiate the shared RestAdapter. In most circumstances,
@@ -15,10 +18,10 @@ public class ApiAdapter extends Application {
             // is recommended for the sake of simplicity.
             // However, some applications will need to talk to more than one
             // server - create as many Adapters as you need.
-            adapter = new RestAdapter(getApplicationContext(), "http://localhost:3000/api");
+            adapter = new RestAdapter(getApplicationContext(), "https://10.0.0.1:3000/api");
 
             // This boilerplate is required for Lesson Three.
-            adapter.getContract().addItem(new RestContractItem("locations/nearby", "GET"), "location.nearby");
+//            adapter.getContract().addItem(new RestContractItem("locations/nearby", "GET"), "location.nearby");
         }
 
         return adapter;
