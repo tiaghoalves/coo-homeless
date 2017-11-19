@@ -2,32 +2,20 @@ package com.coohomeless.models.user;
 
 import com.strongloop.android.loopback.Model;
 
-import java.io.Serializable;
+public class UserModel extends Model {
 
-public class UserModel extends Model implements Serializable {
-
-    private Integer idUser;
-    private String fullName;
+	private Integer idUser;
+	private String fullName;
 	private String email;
-    private String urlProfileImage;
+	private String urlProfileImage;
 	private Integer userType;
-    private String createdAt;
-    private String updatedAt;
+	private String createdAt;
+	private String updatedAt;
 
-    public UserModel() {
-    }
+	public UserModel() {
+	}
 
-    public UserModel(Integer idUser, String fullName, String email, String urlProfileImage, Integer userType, String createdAt, String updatedAt) {
-        this.idUser = idUser;
-        this.fullName = fullName;
-		this.email = email;
-        this.urlProfileImage = urlProfileImage;
-        this.userType = userType;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-   public Integer getIdUser() {
+	public Integer getIdUser() {
 		return idUser;
 	}
 
@@ -67,13 +55,13 @@ public class UserModel extends Model implements Serializable {
 		this.updatedAt = updatedAt;
 	}
 
-    public Integer getUserType() {
-        return userType;
-    }
+	public Integer getUserType() {
+		return userType;
+	}
 
-    public void setUserType(Integer userType) {
-        this.userType = userType;
-    }
+	public void setUserType(Integer userType) {
+		this.userType = userType;
+	}
 
 	public String getEmail() {
 		return email;

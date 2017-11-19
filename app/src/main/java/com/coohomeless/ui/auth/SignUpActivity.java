@@ -1,19 +1,24 @@
 package com.coohomeless.ui.auth;
 
 import android.content.Intent;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
 import com.coohomeless.adapters.ApiAdapter;
-import com.coohomeless.models.user.UserModel;
-import com.coohomeless.repository.UserRepository;
+import com.coohomeless.models.contributor.ContributorModel;
+import com.coohomeless.models.organization.OrganizationModel;
+import com.coohomeless.repository.ContributorRepository;
+import com.coohomeless.repository.OrganizationRepository;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableMap;
@@ -21,10 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.strongloop.android.loopback.RestAdapter;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.strongloop.android.loopback.callbacks.VoidCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,14 +35,16 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
 
     private static final String TAG = "SignUpActivity";
 
-//    private FirebaseAuth mAuth;
     private RestAdapter adapter;
-    private UserRepository userRepository;
+    private String userType;
 
     @BindView(R.id.input_name) EditText nameText;
     @BindView(R.id.input_email) EditText emailText;
     @BindView(R.id.input_password) EditText passwordText;
     @BindView(R.id.btn_signup) Button signupButton;
+    @BindView(R.id.rb_contributor) RadioButton rbContributor;
+    @BindView(R.id.rb_ong) RadioButton rbOng;
+    @BindView(R.id.rg_user_type) RadioGroup rgUserType;
     @BindView(R.id.link_login) TextView loginLink;
 
     @Override
@@ -55,14 +59,20 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
 
         signupButton.setOnClickListener(this);
         loginLink.setOnClickListener(this);
+        rgUserType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                RadioButton button = group.findViewById(checkedId);
+                userType = button.getText().toString();
+            }
+        });
 
-        super.mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
     }
 
     public void signUp(String email, String password) {
@@ -72,7 +82,7 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
         }
         signupButton.setEnabled(false);
 
-        super.mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -120,25 +130,13 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
         setResult(RESULT_OK, null);
         sendEmailVerification();
 
-//        FirebaseUser user = mAuth.getCurrentUser();
-        this.userRepository = this.adapter.createRepository(UserRepository.class);
-        UserModel userModel = userRepository.createObject(ImmutableMap.of("name", "User"));
-
-        // Date format to String from Calendar
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        Calendar cal = Calendar.getInstance();
-//        Date date = new Date();
-
-        userModel.setCreatedAt(dateFormat.format(new Date()));
-        userModel.setUpdatedAt(dateFormat.format(new Date()));
-        userModel.setFullName(this.nameText.getText().toString());
-        userModel.setEmail(this.emailText.getText().toString());
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("userModel", userModel);
+        if (this.userType.equals("Colaborador")) {
+            saveContributor();
+        } else if (this.userType.equals("Organização")) {
+            saveOrganization();
+        }
 
         Intent toLogin = new Intent(SignUpActivity.this, LoginActivity.class);
-        toLogin.putExtras(bundle);
         startActivity(toLogin);
         finish();
     }
@@ -169,14 +167,66 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() > 6) {
+        if (password.isEmpty() || password.length() < 6) {
             passwordText.setError("pelo menos 6 caracteres");
             valid = false;
         } else {
             passwordText.setError(null);
         }
 
+        if (!rbOng.isChecked() && !rbContributor.isChecked()) {
+            valid = false;
+        }
+
         return valid;
+    }
+
+    private void saveContributor() {
+        ContributorRepository contributorRepo = this.adapter.createRepository(ContributorRepository.class);
+        ContributorModel contributor = contributorRepo.createObject(ImmutableMap.of("name", "Contributor"));
+
+        contributor.setName(this.nameText.getText().toString());
+        contributor.setEmail(this.emailText.getText().toString());
+
+        contributor.save(new VoidCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("SampleSlide", "Deu ruuim Contributor model.", t);
+                Toast.makeText(getApplicationContext(), "Deu ruuim Contributor model.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        Toast.makeText(getApplicationContext(), "Colaborador=> "+ contributor.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void saveOrganization() {
+        OrganizationRepository ongRepo = this.adapter.createRepository(OrganizationRepository.class);
+        OrganizationModel organization = ongRepo.createObject(ImmutableMap.of("name", "Organization"));
+
+        organization.setName(this.nameText.getText().toString());
+        organization.setDescOrganization(this.nameText.getText().toString());
+        organization.setEmail(this.emailText.getText().toString());
+
+
+        organization.save(new VoidCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("SampleSlide", "Deu ruuim pra salva ONG model.", t);
+                Toast.makeText(getApplicationContext(), "Deu ruuim ONG model.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Toast.makeText(getApplicationContext(), "ONG=> "+ organization.toString(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -188,7 +238,6 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             signUp(email, password);
 
         } else if (id == R.id.link_login){
-            // Finish the registration screen and return to the Login activity
             Intent toLogin = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(toLogin);
             finish();

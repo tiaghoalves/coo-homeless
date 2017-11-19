@@ -4,23 +4,18 @@ import com.strongloop.android.loopback.Model;
 
 public class ContributorModel extends Model {
 
-    private Integer idContributor;
-    private String name;
-    private Integer cpf;
+//	private Integer id_contributor;
+	private String name;
+	private Integer cpf;
+	private String email;
 
-    public ContributorModel(Integer idContributor, String name, Integer cpf) {
-        this.idContributor = idContributor;
-        this.name = name;
-        this.cpf = cpf;
-    }
-
-	public Integer getIdContributor() {
-		return idContributor;
-	}
-
-	public void setIdContributor(Integer idContributor) {
-		this.idContributor = idContributor;
-	}
+//	public Integer getIdContributor() {
+//		return id_contributor;
+//	}
+//
+//	public void setIdContributor(Integer id_contributor) {
+//		this.id_contributor = id_contributor;
+//	}
 
 	public String getName() {
 		return name;
@@ -38,4 +33,16 @@ public class ContributorModel extends Model {
 		this.cpf = cpf;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Nome: " + this.getName() + "\nEmail: "+ this.getEmail();
+	}
 }

@@ -4,25 +4,10 @@ import com.strongloop.android.loopback.Model;
 
 public class OrganizationModel extends Model {
 
-    private Integer idOrganization;
-    private String name;
-    private String descOrganization;
-    private Integer cnpj;
-
-    public OrganizationModel(Integer idOrganization, String name, String descOrganization, Integer cnpj) {
-        this.idOrganization = idOrganization;
-        this.name = name;
-        this.descOrganization = descOrganization;
-		this.cnpj = cnpj;
-	}
-
-	public Integer getIdOrganization() {
-		return idOrganization;
-	}
-
-	public void setIdOrganization(Integer idOrganization) {
-		this.idOrganization = idOrganization;
-	}
+	private String name;
+	private String descOrganization;
+	private Integer cnpj;
+	private String email;
 
 	public String getName() {
 		return name;
@@ -46,5 +31,18 @@ public class OrganizationModel extends Model {
 
 	public void setCnpj(Integer cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "Nome: " + this.getName() + "\nDescOrganization: "+ this.getDescOrganization() + "\nEmail: "+ this.getEmail();
 	}
 }

@@ -23,7 +23,7 @@ public class BaseAuth extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         this.mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -59,7 +59,7 @@ public class BaseAuth extends FragmentActivity {
         return this.mAuth;
     }
 
-    public static FirebaseUser getAuthUser(){
+    public static FirebaseUser getAuthUser() {
         return mAuth.getCurrentUser();
     }
 }

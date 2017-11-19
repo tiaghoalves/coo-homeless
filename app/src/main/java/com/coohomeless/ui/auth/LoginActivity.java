@@ -53,7 +53,6 @@ public class LoginActivity extends BaseAuth implements
 
     private GoogleApiClient mGoogleApiClient;
     private CallbackManager mCallbackManager;
-    private UserModel userModel;
 
     @BindView(R.id.input_email) EditText inputEmail;
     @BindView(R.id.input_password) EditText inputPassword;
@@ -108,8 +107,6 @@ public class LoginActivity extends BaseAuth implements
         btnSignInGoogle.setOnClickListener(this);
         btnSignInFacebook.setOnClickListener(this);
         mAuth = super.getmAuth();
-
-        this.userModel = (UserModel) getIntent().getExtras().getSerializable("userModel");
     }
 
     @Override
@@ -210,7 +207,7 @@ public class LoginActivity extends BaseAuth implements
 
     private void logout() {
         // Firebase sign out
-        super.mAuth.signOut();
+        mAuth.signOut();
 
         // Google sign out
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
@@ -226,7 +223,7 @@ public class LoginActivity extends BaseAuth implements
 
     public void onLoginSuccess() {
         Intent toIntro = new Intent(LoginActivity.this, IntroActivity.class);
-        toIntro.putExtra("user", this.userModel);
+//        toIntro.putExtra("userModel", this.userModel);
         startActivity(toIntro);
         finish();
     }
@@ -265,6 +262,7 @@ public class LoginActivity extends BaseAuth implements
     @Override
     public void onClick(View view) {
         int id = view.getId();
+
         if (id == R.id.input_email || id == R.id.input_password) {
             btnLogin.setProgress(0);
             btnSignUp.setProgress(0);

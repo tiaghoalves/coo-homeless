@@ -17,4 +17,7 @@
     <string name="drawer_close">Fechar navegação</string>
     <string name="sign_up">Sign up</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="tipo_de_usu_rio">Tipo de Usuário:</string>
+    <string name="colaborador">Colaborador</string>
+    <string name="organiza_o">Organização</string>
 </resources>

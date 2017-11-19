@@ -1,6 +1,8 @@
 package com.coohomeless.ui.fragments.slides;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -12,8 +14,13 @@ import android.widget.Toast;
 
 import com.coohomeless.R;
 import com.coohomeless.adapters.ApiAdapter;
-import com.coohomeless.models.user.UserModel;
-import com.coohomeless.repository.UserRepository;
+import com.coohomeless.models.contributor.ContributorModel;
+import com.coohomeless.models.organization.OrganizationModel;
+import com.coohomeless.repository.ContributorRepository;
+import com.coohomeless.repository.OrganizationRepository;
+import com.coohomeless.ui.auth.BaseAuth;
+import com.google.common.collect.ImmutableMap;
+import com.google.firebase.auth.FirebaseUser;
 import com.strongloop.android.loopback.RestAdapter;
 import com.strongloop.android.loopback.callbacks.VoidCallback;
 
@@ -21,24 +28,52 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SlideUserTypeFragment extends Fragment implements View.OnClickListener {
+
     private RestAdapter adapter;
-//    private UserRepository userRepository;
-    private UserModel userModel;
+    private String userName;
+    private String email;
 
     @BindView(R.id.img_ong) ImageView imgONG;
     @BindView(R.id.img_contributor) ImageView imgContributor;
+
+    public static SlideUserTypeFragment newInstance() {
+        SlideUserTypeFragment slideUserTypeFragment = new SlideUserTypeFragment();
+
+        return slideUserTypeFragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // 1. Grab the shared RestAdapter instance.
+        ApiAdapter apiAdapter = (ApiAdapter) getActivity().getApplication();
+        this.adapter = apiAdapter.getApiAdapter();
+
+//        if (getArguments() != null && getArguments().containsKey("userModel")) {
+//            this.userModel = (UserModel) getArguments().getSerializable("userModel");
+//            Log.d("SlideUserTypeFragment", " this.userModel ===== " + this.userModel);
+//            Toast.makeText(getActivity(), "USER ==>> " + this.userModel, Toast.LENGTH_LONG).show();
+//        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        this.userName = preferences.getString("userName", null);
+        this.email = preferences.getString("email", null);
+
+        Toast.makeText(getActivity(), "userName => " + this.userName, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "email => " + this.email, Toast.LENGTH_LONG).show();
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.slide_user_type, container, false);
         ButterKnife.bind(this, v);
-
-        // 1. Grab the shared RestAdapter instance.
-        ApiAdapter apiAdapter = (ApiAdapter) getActivity().getApplication();
-        this.adapter = apiAdapter.getApiAdapter();
-//        this.userRepository = this.adapter.createRepository(UserRepository.class);
-        this.userModel = (UserModel) getActivity().getIntent().getExtras().getSerializable("userModel");
 
         imgONG.setOnClickListener(this);
         imgContributor.setOnClickListener(this);
@@ -51,22 +86,74 @@ public class SlideUserTypeFragment extends Fragment implements View.OnClickListe
         int id = view.getId();
 
         if (id == R.id.img_ong) {
-            this.userModel.setUserType(1);
+            Toast.makeText(getActivity(), "<--- ONG --->", Toast.LENGTH_SHORT).show();
+            saveOrganization();
         } else if (id == R.id.img_contributor) {
-            this.userModel.setUserType(0);
+            Toast.makeText(getActivity(), "<--- CONTRIBUTOR --->", Toast.LENGTH_SHORT).show();
+            saveContributor();
+        }
+    }
+
+    private void saveContributor() {
+        ContributorRepository contributorRepo = this.adapter.createRepository(ContributorRepository.class);
+        ContributorModel contributor = contributorRepo.createObject(ImmutableMap.of("name", "Contributor"));
+
+        FirebaseUser authUser = BaseAuth.getAuthUser();
+
+        if (authUser != null && authUser.getDisplayName() != null) {
+            contributor.setName(authUser.getDisplayName());
+            contributor.setEmail(authUser.getEmail());
+        } else {
+            contributor.setName(this.userName);
+            contributor.setEmail(this.email);
         }
 
-        this.userModel.save(new VoidCallback() {
+        contributor.save(new VoidCallback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getActivity(), "SAVED !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(Throwable t) {
-                Log.e("SampleSlide", "Cannot save Note model.", t);
-                Toast.makeText(getActivity(), "Cannot save User model.", Toast.LENGTH_SHORT).show();
+                Log.e("SampleSlide", "Deu ruuim Contributor model.", t);
+                Toast.makeText(getActivity(), "Deu ruuim Contributor model.", Toast.LENGTH_LONG).show();
             }
         });
+
+        Toast.makeText(getActivity(), "Salvando ONG: "+ contributor.toString(), Toast.LENGTH_SHORT).show();
     }
+
+    private void saveOrganization() {
+        OrganizationRepository ongRepo = this.adapter.createRepository(OrganizationRepository.class);
+        OrganizationModel organization = ongRepo.createObject(ImmutableMap.of("name", "Organization"));
+
+        FirebaseUser authUser = BaseAuth.getAuthUser();
+
+        if (authUser != null && authUser.getDisplayName() != null) {
+            organization.setName(authUser.getDisplayName());
+            organization.setDescOrganization(authUser.getDisplayName());
+            organization.setEmail(authUser.getEmail());
+        } else {
+            organization.setName(this.userName);
+            organization.setDescOrganization(this.userName);
+            organization.setEmail(this.email);
+        }
+
+        organization.save(new VoidCallback() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(getActivity(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                Log.e("SampleSlide", "Deu ruuim pra salva ONG model.", t);
+                Toast.makeText(getActivity(), "Deu ruuim ONG model.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Toast.makeText(getActivity(), "Salvando ONG: "+ organization.toString(), Toast.LENGTH_SHORT).show();
+    }
+
 }
