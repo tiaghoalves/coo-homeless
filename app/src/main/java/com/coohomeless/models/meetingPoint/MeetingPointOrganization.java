@@ -1,12 +1,21 @@
-package com.coohomeless.models.homeless;
+package com.coohomeless.models.meetingPoint;
 
-
+import com.google.android.gms.maps.model.LatLng;
 import com.strongloop.android.loopback.Model;
 
-public class HomelessInfoModel extends Model {
+public class MeetingPointOrganization extends Model {
 
+    private LatLng location;
     private String createdAt;
     private String updatedAt;
+
+    public LatLng getLocation() {
+        return location;
+    }
+
+    public void setLocation(LatLng location) {
+        this.location = location;
+    }
 
     public String getCreatedAt() {
         return createdAt;

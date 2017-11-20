@@ -6,31 +6,13 @@ import java.util.Calendar;
 
 public class HomelessModel extends Model {
 
-    private Integer idHomeless;
     private String name;
     private String anonymous;
     private String photo;
     private String background;
     private String statusType;
-    private Calendar createdAt;
-    private Calendar updatedAt;
-   
-   public HomelessModel(Integer idHomeless, String name, String anonymous, String photo, String background, String statusType, Calendar createdAt, Calendar updatedAt) {
-      this.idHomeless = idHomeless;
-      this.name = name;
-      this.anonymous = anonymous;
-      this.photo = photo;
-      this.background = background;
-      this.statusType = statusType;
-      this.createdAt = createdAt;
-      this.updatedAt = updatedAt;
-   }
-
-    public Integer getIdHomeless() { return idHomeless; }
-
-    public void setIdHomeless(Integer idHomeless) {
-        this.idHomeless = idHomeless;
-    }
+    private String createdAt;
+    private String updatedAt;
 
     public String getName() {
         return name;
@@ -72,19 +54,19 @@ public class HomelessModel extends Model {
         this.statusType = statusType;
     }
 
-    public Calendar getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Calendar createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Calendar getUpdatedAt() {
+    public String getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Calendar updatedAt) {
+    public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 }
