@@ -37,9 +37,7 @@ public class SlideUserTypeFragment extends Fragment implements View.OnClickListe
     @BindView(R.id.img_contributor) ImageView imgContributor;
 
     public static SlideUserTypeFragment newInstance() {
-        SlideUserTypeFragment slideUserTypeFragment = new SlideUserTypeFragment();
-
-        return slideUserTypeFragment;
+        return new SlideUserTypeFragment();
     }
 
     @Override
@@ -50,11 +48,6 @@ public class SlideUserTypeFragment extends Fragment implements View.OnClickListe
         ApiAdapter apiAdapter = (ApiAdapter) getActivity().getApplication();
         this.adapter = apiAdapter.getApiAdapter();
 
-//        if (getArguments() != null && getArguments().containsKey("userModel")) {
-//            this.userModel = (UserModel) getArguments().getSerializable("userModel");
-//            Log.d("SlideUserTypeFragment", " this.userModel ===== " + this.userModel);
-//            Toast.makeText(getActivity(), "USER ==>> " + this.userModel, Toast.LENGTH_LONG).show();
-//        }
     }
 
     @Override
@@ -116,12 +109,12 @@ public class SlideUserTypeFragment extends Fragment implements View.OnClickListe
 
             @Override
             public void onError(Throwable t) {
-                Log.e("SampleSlide", "Deu ruuim Contributor model.", t);
+                Log.e("SampleSlide", "Deu ruuim no Contributor.save.", t);
                 Toast.makeText(getActivity(), "Deu ruuim Contributor model.", Toast.LENGTH_LONG).show();
             }
         });
 
-        Toast.makeText(getActivity(), "Salvando ONG: "+ contributor.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Salvo:ONG= "+ contributor.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void saveOrganization() {
@@ -149,11 +142,11 @@ public class SlideUserTypeFragment extends Fragment implements View.OnClickListe
             @Override
             public void onError(Throwable t) {
                 Log.e("SampleSlide", "Deu ruuim pra salva ONG model.", t);
-                Toast.makeText(getActivity(), "Deu ruuim ONG model.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Deu ruuim no ONG.save", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Toast.makeText(getActivity(), "Salvando ONG: "+ organization.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Salvo:ONG= "+ organization.toString(), Toast.LENGTH_SHORT).show();
     }
 
 }

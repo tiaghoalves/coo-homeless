@@ -148,7 +148,9 @@ public class LoginActivity extends BaseAuth implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Toast.makeText(getApplicationContext(), "Login Google Realizado: " + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+            if (acct != null) {
+                Toast.makeText(getApplicationContext(), "Login Google Realizado: " + acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+            }
             onLoginSuccess();
         } else {
             // Signed out, show unauthenticated UI.
