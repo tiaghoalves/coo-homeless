@@ -4,18 +4,9 @@ import com.strongloop.android.loopback.Model;
 
 public class ContributorModel extends Model {
 
-//	private Integer id_contributor;
 	private String name;
 	private Integer cpf;
 	private String email;
-
-//	public Integer getIdContributor() {
-//		return id_contributor;
-//	}
-//
-//	public void setIdContributor(Integer id_contributor) {
-//		this.id_contributor = id_contributor;
-//	}
 
 	public String getName() {
 		return name;
