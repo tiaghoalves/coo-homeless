@@ -2,6 +2,8 @@ package com.coohomeless.ui;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,6 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coohomeless.R;
+import com.coohomeless.models.contributor.ContributorModel;
+import com.coohomeless.models.organization.OrganizationModel;
+import com.coohomeless.ui.auth.BaseAuth;
+import com.coohomeless.ui.auth.LoginActivity;
 import com.coohomeless.ui.fragments.LocalizationFragment;
 import com.coohomeless.ui.fragments.MapFragment;
 import com.coohomeless.ui.fragments.SettingFragment;
@@ -27,14 +33,18 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.strongloop.android.loopback.Model;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends BaseAuth {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private FirebaseAuth mAuth;
+//    private SharedPreferences mPrefs = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+    private TextView userName;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation) NavigationView mNavigationView;
@@ -48,38 +58,62 @@ public class MenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // As we're using a Toolbar, we should retrieve it and set it to be our ActionBar
-        Toolbar appbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(appbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            // Display icon in the toolbar
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayUseLogoEnabled(true);
         }
 
-//        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
         mDrawerLayout.addDrawerListener(mDrawerToggle);
-
         if (mNavigationView != null) {
             setupNavigationView(mNavigationView);
         }
 
-        View headerView = mNavigationView.getHeaderView(0);
-        TextView userName = headerView.findViewById(R.id.txtName);
-        FirebaseUser user = mAuth.getCurrentUser();
-        userName.setText(user.getDisplayName());
+        View headerView = null;
+        if (mNavigationView != null) {
+            headerView = mNavigationView.getHeaderView(0);
+            this.userName = headerView.findViewById(R.id.txtName);
+        }
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        if (firebaseUser != null) {
+            userName.setText(firebaseUser.getDisplayName());
+        }
 
         selectItem(0);
     }
 
+    /*
+    private void setAuthenticateUserName() {
+        try {
+            Gson gson = new Gson();
+            String ongJSON = mPrefs.getString("organization", null);
+            String contributorJSON = mPrefs.getString("contributor", null);
+
+            if (!ongJSON.isEmpty() && contributorJSON.isEmpty()){
+                OrganizationModel organization = gson.fromJson(ongJSON, OrganizationModel.class);
+                this.userName.setText(organization.getName());
+
+            } else if (!ongJSON.isEmpty() && contributorJSON.isEmpty()) {
+                ContributorModel contributor = gson.fromJson(contributorJSON, ContributorModel.class);
+                this.userName.setText(contributor.getName());
+
+            }
+        } catch (Error error) {
+            Toast.makeText(this, "Erro getAutheticateUser", Toast.LENGTH_LONG).show();
+        }
+    } */
+
     private void setupNavigationView(NavigationView mNavigationView) {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                switch (menuItem.getItemId()){
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
                     case R.id.action_map:
                         selectItem(0);
                         return true;
@@ -134,6 +168,9 @@ public class MenuActivity extends AppCompatActivity {
     private void logout() {
         // Firebase sign out
         mAuth.signOut();
+
+        Intent backToLogin = new Intent(MenuActivity.this, LoginActivity.class);
+        startActivity(backToLogin);
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.util.Log;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class BaseAuth extends FragmentActivity {
+public class BaseAuth extends AppCompatActivity {
 
     private final String TAG = "BaseAuth";
 

@@ -1,6 +1,8 @@
 package com.coohomeless.ui.auth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -30,6 +32,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.strongloop.android.loopback.RestAdapter;
 import com.strongloop.android.loopback.callbacks.VoidCallback;
 
@@ -245,14 +249,19 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
         contributor.save(new VoidCallback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "Colaborador=> "+ contributor.toString(), Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                Gson gson = new Gson();
+                String contributorJSON = gson.toJson(contributor);
+                editor.putString("contributor", contributorJSON);
+                editor.apply();
+
+                Toast.makeText(getApplicationContext(), "Conta criada", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(Throwable t) {
-                Log.e("SampleSlide", "Deu ruuim Contributor model.", t);
-                Toast.makeText(getApplicationContext(), "Deu ruuim Contributor model.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Erro ao salvar", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -272,14 +281,19 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
         organization.save(new VoidCallback() {
             @Override
             public void onSuccess() {
-                Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "ONG=> "+ organization.toString(), Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedPref = getApplicationContext().getSharedPreferences( getString(R.string.preference_file_key),MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                Gson gson = new Gson();
+                String ongJSON = gson.toJson(organization);
+                editor.putString("organization", ongJSON);
+                editor.apply();
+
+                Toast.makeText(getApplicationContext(), "Conta criada", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onError(Throwable t) {
-                Log.e("SampleSlide", "Deu ruuim pra salva ONG model.", t);
-                Toast.makeText(getApplicationContext(), "Deu ruuim ONG model.", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "Erro ao salvar", Toast.LENGTH_SHORT).show();
             }
         });
 

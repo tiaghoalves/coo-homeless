@@ -24,4 +24,5 @@
     <string name="CNPJ">CNPJ</string>
     <string name="endere_o">Endereço</string>
     <string name="username">Username</string>
+    <string name="preference_file_key">com.coohomeless.PREFERENCE_FILE_KEY</string>
 </resources>
