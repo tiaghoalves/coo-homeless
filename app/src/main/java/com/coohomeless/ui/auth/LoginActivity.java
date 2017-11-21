@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.coohomeless.R;
 import com.coohomeless.models.user.UserModel;
 import com.coohomeless.ui.IntroActivity;
+import com.coohomeless.ui.MenuActivity;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -170,7 +171,9 @@ public class LoginActivity extends BaseAuth implements
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            onLoginSuccess();
+                            Intent toIntro = new Intent(LoginActivity.this, MenuActivity.class);
+                            startActivity(toIntro);
+                            finish();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -225,7 +228,6 @@ public class LoginActivity extends BaseAuth implements
 
     public void onLoginSuccess() {
         Intent toIntro = new Intent(LoginActivity.this, IntroActivity.class);
-//        toIntro.putExtra("userModel", this.userModel);
         startActivity(toIntro);
         finish();
     }

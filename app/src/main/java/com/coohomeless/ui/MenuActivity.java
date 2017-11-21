@@ -35,7 +35,6 @@ public class MenuActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private FirebaseAuth mAuth;
-    private Toolbar appbar;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation) NavigationView mNavigationView;
@@ -49,14 +48,13 @@ public class MenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // As we're using a Toolbar, we should retrieve it and set it to be our ActionBar
-        appbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar appbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             // Display icon in the toolbar
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setLogo(R.mipmap.ic_launcher);
             actionBar.setDisplayUseLogoEnabled(true);
         }
 
@@ -91,6 +89,8 @@ public class MenuActivity extends AppCompatActivity {
                     case R.id.action_settings:
                         selectItem(2);
                         return true;
+                    case R.id.action_logout:
+                        logout();
                     default:
                         return true;
                 }

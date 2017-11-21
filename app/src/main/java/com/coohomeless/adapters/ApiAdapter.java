@@ -18,7 +18,7 @@ public class ApiAdapter extends Application {
             // is recommended for the sake of simplicity.
             // However, some applications will need to talk to more than one
             // server - create as many Adapters as you need.
-            adapter = new RestAdapter(getApplicationContext(), "http://192.168.0.115:3000/api");
+            adapter = new RestAdapter(getApplicationContext(), "http://c0745cd9.ngrok.io/api");
 
             // This boilerplate is required for Lesson Three.
 //            adapter.getContract().addItem(new RestContractItem("locations/nearby", "GET"), "location.nearby");

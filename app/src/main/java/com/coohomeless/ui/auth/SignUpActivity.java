@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +22,8 @@ import com.coohomeless.models.contributor.ContributorModel;
 import com.coohomeless.models.organization.OrganizationModel;
 import com.coohomeless.repository.ContributorRepository;
 import com.coohomeless.repository.OrganizationRepository;
+import com.coohomeless.ui.utils.MaskType;
+import com.coohomeless.ui.utils.MaskUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ImmutableMap;
@@ -30,6 +35,8 @@ import com.strongloop.android.loopback.callbacks.VoidCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.util.Patterns.*;
 
 public class SignUpActivity extends BaseAuth implements View.OnClickListener {
 
@@ -45,7 +52,13 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
     @BindView(R.id.rb_contributor) RadioButton rbContributor;
     @BindView(R.id.rb_ong) RadioButton rbOng;
     @BindView(R.id.rg_user_type) RadioGroup rgUserType;
+    @BindView(R.id.input_cpf) EditText cpfText;
+    @BindView(R.id.input_cnpj) EditText cnpjText;
+    @BindView(R.id.input_endereco) EditText enderecoText;
+    @BindView(R.id.input_fone) EditText foneText;
     @BindView(R.id.link_login) TextView loginLink;
+    @BindView(R.id.contributor_data) LinearLayout containerContributor;
+    @BindView(R.id.ong_data) LinearLayout containerOng;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +70,10 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
         ApiAdapter apiAdapter = (ApiAdapter) getApplicationContext();
         this.adapter = apiAdapter.getApiAdapter();
 
+        cpfText.addTextChangedListener(MaskUtil.insert(cpfText, MaskType.CPF));
+        cnpjText.addTextChangedListener(MaskUtil.insert(cnpjText, MaskType.CNPJ));
+        foneText.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         signupButton.setOnClickListener(this);
         loginLink.setOnClickListener(this);
         rgUserType.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -64,6 +81,7 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 RadioButton button = group.findViewById(checkedId);
                 userType = button.getText().toString();
+                updateUi(userType);
             }
         });
 
@@ -160,7 +178,7 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             nameText.setError(null);
         }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.isEmpty() || !EMAIL_ADDRESS.matcher(email).matches()) {
             emailText.setError("endereço de e-mail inválido");
             valid = false;
         } else {
@@ -174,6 +192,41 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             passwordText.setError(null);
         }
 
+        if (containerContributor.getVisibility() == View.VISIBLE) {
+            String cpf = cpfText.getText().toString();
+
+            if (cpf.isEmpty()) {
+                cpfText.setError("CPF inválido");
+                valid = false;
+            } else {
+                cpfText.setError(null);
+            }
+        }
+
+        if (containerOng.getVisibility() == View.VISIBLE) {
+            String cnpj = cnpjText.getText().toString();
+            String phone = foneText.getText().toString();
+            String endereco = enderecoText.getText().toString();
+
+            if (cnpj.isEmpty()) {
+                cnpjText.setError("CPF inválido");
+                valid = false;
+            } else {
+                cnpjText.setError(null);
+            }
+
+            if (endereco.isEmpty()) {
+                enderecoText.setError("Endereço inválido");
+                valid = false;
+            }
+
+            if (foneText.isDirty() || !PHONE.matcher(phone).matches()) {
+                foneText.setError("Telefone inválido");
+                valid = false;
+            }
+
+        }
+
         if (!rbOng.isChecked() && !rbContributor.isChecked()) {
             valid = false;
         }
@@ -183,15 +236,17 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
 
     private void saveContributor() {
         ContributorRepository contributorRepo = this.adapter.createRepository(ContributorRepository.class);
-        ContributorModel contributor = contributorRepo.createObject(ImmutableMap.of("name", "Contributor"));
+        final ContributorModel contributor = contributorRepo.createObject(ImmutableMap.of("name", "Contributor"));
 
         contributor.setName(this.nameText.getText().toString());
         contributor.setEmail(this.emailText.getText().toString());
+        contributor.setCpf(cpfText.getText().toString());
 
         contributor.save(new VoidCallback() {
             @Override
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Colaborador=> "+ contributor.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -201,22 +256,24 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             }
         });
 
-        Toast.makeText(getApplicationContext(), "Colaborador=> "+ contributor.toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void saveOrganization() {
         OrganizationRepository ongRepo = this.adapter.createRepository(OrganizationRepository.class);
-        OrganizationModel organization = ongRepo.createObject(ImmutableMap.of("name", "Organization"));
+        final OrganizationModel organization = ongRepo.createObject(ImmutableMap.of("name", "Organization"));
 
         organization.setName(this.nameText.getText().toString());
         organization.setDescOrganization(this.nameText.getText().toString());
         organization.setEmail(this.emailText.getText().toString());
-
+        organization.setCnpj(cnpjText.getText().toString());
+        organization.setEndereco(enderecoText.getText().toString());
+        organization.setFone(foneText.getText().toString());
 
         organization.save(new VoidCallback() {
             @Override
             public void onSuccess() {
                 Toast.makeText(getApplicationContext(), "SALVOOOOO !", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "ONG=> "+ organization.toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -226,7 +283,16 @@ public class SignUpActivity extends BaseAuth implements View.OnClickListener {
             }
         });
 
-        Toast.makeText(getApplicationContext(), "ONG=> "+ organization.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateUi(String userType) {
+        if (userType.equals("Colaborador")) {
+            containerContributor.setVisibility(View.VISIBLE);
+            containerOng.setVisibility(View.GONE);
+        } else if (userType.equals("Organização")) {
+            containerOng.setVisibility(View.VISIBLE);
+            containerContributor.setVisibility(View.GONE);
+        }
     }
 
     @Override

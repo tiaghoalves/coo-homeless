@@ -1,6 +1,8 @@
 package com.coohomeless.models.meetingPoint;
 
 
+import android.os.Parcelable;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.strongloop.android.loopback.Model;
 
@@ -8,7 +10,7 @@ import java.util.Calendar;
 
 public class MeetingPointContributorModel extends Model {
 
-	private LatLng location;
+	private LatLng location = new LatLng(-4234324.434, -2312323.432);
 	private Calendar createdAt;
 	private Calendar updatedAt;
 

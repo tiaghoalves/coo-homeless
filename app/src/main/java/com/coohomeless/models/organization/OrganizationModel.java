@@ -6,8 +6,10 @@ public class OrganizationModel extends Model {
 
 	private String name;
 	private String descOrganization;
-	private Integer cnpj;
+	private String cnpj;
 	private String email;
+	private String endereco;
+	private String fone;
 
 	public String getName() {
 		return name;
@@ -25,11 +27,11 @@ public class OrganizationModel extends Model {
 		this.descOrganization = descOrganization;
 	}
 
-	public Integer getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Integer cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -39,6 +41,22 @@ public class OrganizationModel extends Model {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public String getFone() {
+		return fone;
+	}
+
+	public void setFone(String fone) {
+		this.fone = fone;
 	}
 
 	@Override

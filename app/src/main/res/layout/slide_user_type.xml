@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:layout_gravity="left"
-            android:src="@drawable/ong_handshake"
+            android:src="@drawable/ic_contributor"
             android:clickable="true"/>
 
         <ImageView

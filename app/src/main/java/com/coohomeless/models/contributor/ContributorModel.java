@@ -5,7 +5,7 @@ import com.strongloop.android.loopback.Model;
 public class ContributorModel extends Model {
 
 	private String name;
-	private Integer cpf;
+	private String cpf;
 	private String email;
 
 	public String getName() {
@@ -16,11 +16,11 @@ public class ContributorModel extends Model {
 		this.name = name;
 	}
 
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 

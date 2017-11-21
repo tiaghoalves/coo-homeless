@@ -20,4 +20,8 @@
     <string name="tipo_de_usu_rio">Tipo de Usuário:</string>
     <string name="colaborador">Colaborador</string>
     <string name="organiza_o">Organização</string>
+    <string name="CPF">CPF</string>
+    <string name="CNPJ">CNPJ</string>
+    <string name="endere_o">Endereço</string>
+    <string name="username">Username</string>
 </resources>
