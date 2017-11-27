@@ -10,8 +10,8 @@
 	<a href="https://www.npmjs.com/package/coohomeless-landing-page">
 		<img src="https://img.shields.io/npm/v/coohomeless-landing-page.svg" alt="npm version">
 	</a>
-	<a href="https://travis-ci.org/tiaghoalves/landing-page">
-		<img src="https://api.travis-ci.org/tiaghoalves/landing-page.svg?branch=master" alt="Build Status">
+	<a href="https://travis-ci.org/tiaghoalves/coo-homeless">
+		<img src="https://travis-ci.org/tiaghoalves/coo-homeless.svg?branch=master" alt="Build Status">
 	</a>
 	<a href="https://david-dm.org/tiaghoalves/landing-page">
 		<img src="https://david-dm.org/tiaghoalves/landing-page/status.svg" alt="dependencies Status">
