@@ -12,7 +12,7 @@
     android:weightSum="1"
     tools:context="com.coohomeless.ui.auth.LoginActivity">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="128dp"

@@ -38,6 +38,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
     private GoogleMap mGoogleMap;
+    private FloatingActionButton fabAddPoint;
 
     SupportMapFragment mapFrag;
     GoogleApiClient mGoogleApiClient;
@@ -48,20 +49,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        FloatingActionButton fabAddPoint = v.findViewById(R.id.fab_add);
-
-        fabAddPoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mGoogleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-                    @Override
-                    public void onMyLocationChange(Location location) {
-                        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
-                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 10));
-                    }
-                });
-            }
-        });
+        fabAddPoint = v.findViewById(R.id.fab_add);
 
         // Gets the MapView from the XML layout and creates it
         mMapView = v.findViewById(R.id.map_view);
@@ -106,6 +94,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         else {
             mGoogleMap.setMyLocationEnabled(true);
         }
+
+        fabAddPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mGoogleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+                    @Override
+                    public void onMyLocationChange(Location location) {
+                        mGoogleMap.addMarker(new MarkerOptions().position(new LatLng(location.getLatitude(), location.getLongitude())).title("It's Me!"));
+                        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 10));
+                    }
+                });
+            }
+        });
 
         setUpMapIfNeeded();
     }
