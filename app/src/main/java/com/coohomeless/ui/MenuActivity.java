@@ -43,7 +43,6 @@ public class MenuActivity extends BaseAuth {
 
     private ActionBarDrawerToggle mDrawerToggle;
     private FirebaseAuth mAuth;
-//    private SharedPreferences mPrefs = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), MODE_PRIVATE);
     private TextView userName;
 
     @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
@@ -87,27 +86,6 @@ public class MenuActivity extends BaseAuth {
 
         selectItem(0);
     }
-
-    /*
-    private void setAuthenticateUserName() {
-        try {
-            Gson gson = new Gson();
-            String ongJSON = mPrefs.getString("organization", null);
-            String contributorJSON = mPrefs.getString("contributor", null);
-
-            if (!ongJSON.isEmpty() && contributorJSON.isEmpty()){
-                OrganizationModel organization = gson.fromJson(ongJSON, OrganizationModel.class);
-                this.userName.setText(organization.getName());
-
-            } else if (!ongJSON.isEmpty() && contributorJSON.isEmpty()) {
-                ContributorModel contributor = gson.fromJson(contributorJSON, ContributorModel.class);
-                this.userName.setText(contributor.getName());
-
-            }
-        } catch (Error error) {
-            Toast.makeText(this, "Erro getAutheticateUser", Toast.LENGTH_LONG).show();
-        }
-    } */
 
     private void setupNavigationView(NavigationView mNavigationView) {
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
